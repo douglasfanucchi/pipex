@@ -1,0 +1,8 @@
+.vscode
+*.out
+libft.a
+test.out*
+ft_printf_tester
+printfTester
+*.o
+*.a
