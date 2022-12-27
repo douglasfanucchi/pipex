@@ -13,6 +13,9 @@
 #ifndef PIPEX_H
 # define PIPEX_H
 # include <ft_printf.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/types.h>
 
 typedef struct s_command {
 	int		input_fd;
