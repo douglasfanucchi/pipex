@@ -14,4 +14,13 @@
 # define PIPEX_H
 # include <ft_printf.h>
 
+typedef struct s_command {
+	int		input_fd;
+	int		output_fd;
+	char	*pathname;
+	char	*filename;
+	char	**envp;
+	char	**argv;
+}	t_command;
+
 #endif
