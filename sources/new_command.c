@@ -32,3 +32,16 @@ static char	*get_pathname(char *bin, char **paths)
 	free(slash_bin);
 	return (NULL);
 }
+
+static char	*get_filename(char *str_cmd)
+{
+	char	*str_end;
+	if (!str_cmd)
+		return (ft_strdup(""));
+	while (ft_isspace(*str_cmd))
+		str_cmd++;
+	str_end = str_cmd;
+	while (*str_end && !ft_isspace(*str_end))
+		str_end++;
+	return (ft_substr(str_cmd, 0, str_end - str_cmd));
+}
