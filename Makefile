@@ -1,6 +1,6 @@
 NAME=pipex
 CC=cc
-FILES=pipex
+FILES=pipex new_command
 SRC := $(addsuffix .c, $(FILES))
 SRC := $(addprefix sources/, $(SRC))
 OBJS = $(addsuffix .o, $(FILES))
