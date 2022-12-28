@@ -76,6 +76,22 @@ static char	**get_args(char *str_cmd, int index)
 	return (args);
 }
 
+void	del_command(t_command *command)
+{
+	char	**argv;
+
+	argv = command->argv;
+	free(command->filename);
+	free(command->pathname);
+	while (*argv)
+	{
+		free(*argv);
+		argv++;
+	}
+	free(command->argv);
+	free(command);
+}
+
 t_command	*new_command(char *str_cmd, char **envp, char **paths)
 {
 	t_command	*command;
