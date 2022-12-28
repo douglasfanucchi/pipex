@@ -45,3 +45,39 @@ static char	*get_filename(char *str_cmd)
 		str_end++;
 	return (ft_substr(str_cmd, 0, str_end - str_cmd));
 }
+
+static char	get_arg_delimiter(char *str_cmd)
+{
+	if (*str_cmd == 34)
+		return ('"');
+	if (*str_cmd == 39)
+		return ('\'');
+	return (' ');
+}
+
+static char	**get_args(char *str_cmd, int index)
+{
+	char	**args;
+	char	delimiter;
+	char	*str_end;
+	int		offset;
+
+	offset = 0;
+	while (ft_isspace(*str_cmd))
+		str_cmd++;
+	if (!*str_cmd)
+	{
+		args = malloc(sizeof(char **) * (index + 1));
+		args[index] = NULL;
+		return (args);
+	}
+	delimiter = get_arg_delimiter(str_cmd);
+	str_end = str_cmd + 1;
+	while (*str_end && *str_end != delimiter)
+		str_end++;
+	if (delimiter != ' ')
+		offset = 1;
+	args = get_args(str_end + offset, index + 1);
+	args[index] = ft_substr(str_cmd, 0, str_end - str_cmd + offset);
+	return (args);
+}
