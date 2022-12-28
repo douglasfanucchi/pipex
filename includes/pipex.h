@@ -31,5 +31,6 @@ void		del_command(t_command *command);
 char		**get_paths(char **envp);
 void		del_paths(char **paths);
 char		validate_args(int argc);
+t_list		**get_commands(char **params, char **envp);
 
 #endif
