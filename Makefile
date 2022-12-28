@@ -1,6 +1,6 @@
 NAME=pipex
 CC=cc
-FILES=pipex new_command paths validate_args commands
+FILES=pipex new_command paths validate_args commands open_files
 SRC := $(addsuffix .c, $(FILES))
 SRC := $(addprefix sources/, $(SRC))
 OBJS = $(addsuffix .o, $(FILES))
