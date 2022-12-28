@@ -30,5 +30,6 @@ t_command	*new_command(char *str_cmd, char **envp, char **paths);
 void		del_command(t_command *command);
 char		**get_paths(char **envp);
 void		del_paths(char **paths);
+char		validate_args(int argc);
 
 #endif
