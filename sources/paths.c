@@ -29,3 +29,16 @@ char	**get_paths(char **envp)
 	free(path);
 	return (paths);
 }
+
+void	del_paths(char **paths)
+{
+	char	**t_paths;
+
+	t_paths = paths;
+	while (*t_paths)
+	{
+		free(*t_paths);
+		t_paths++;
+	}
+	free(paths);
+}
