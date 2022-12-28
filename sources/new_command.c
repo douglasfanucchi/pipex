@@ -91,9 +91,9 @@ void	del_command(void *cmd)
 		argv++;
 	}
 	free(command->argv);
-	free(command);
 	close(command->input_fd);
 	close(command->output_fd);
+	free(command);
 }
 
 t_command	*new_command(char *str_cmd, char **envp, char **paths)
