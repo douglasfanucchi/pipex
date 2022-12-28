@@ -47,15 +47,6 @@ static char	*get_filename(char *str_cmd)
 	return (ft_substr(str_cmd, 0, str_end - str_cmd));
 }
 
-static char	get_arg_delimiter(char *str_cmd)
-{
-	if (*str_cmd == 34)
-		return ('"');
-	if (*str_cmd == 39)
-		return ('\'');
-	return (' ');
-}
-
 static char	**get_args(char *str_cmd, int index)
 {
 	char	**args;
@@ -72,7 +63,9 @@ static char	**get_args(char *str_cmd, int index)
 		args[index] = NULL;
 		return (args);
 	}
-	delimiter = get_arg_delimiter(str_cmd);
+	delimiter = ' ';
+	if (*str_cmd == '\'' || *str_cmd == '"')
+		delimiter = *str_cmd;
 	str_end = str_cmd + 1;
 	while (*str_end && *str_end != delimiter)
 		str_end++;
