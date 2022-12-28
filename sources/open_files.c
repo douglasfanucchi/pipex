@@ -30,6 +30,12 @@ static void	check_permission(char *file, int mode)
 	}
 }
 
+void	close_files(int *files)
+{
+	close(files[0]);
+	close(files[1]);
+}
+
 void	open_files(int *files, char **argv, int args)
 {
 	check_exists(files[0]);
