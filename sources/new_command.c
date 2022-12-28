@@ -103,7 +103,8 @@ t_command	*new_command(char *str_cmd, char **envp, char **paths)
 	command = malloc(sizeof(t_command));
 	command->filename = get_filename(str_cmd);
 	command->pathname = get_pathname(command->filename, paths);
-	command->argv = get_args(str_cmd + ft_strlen(command->filename), 0);
+	command->argv = get_args(str_cmd + ft_strlen(command->filename), 1);
+	command->argv[0] = ft_strdup(command->filename);
 	command->envp = envp;
 	return (command);
 }
