@@ -82,3 +82,15 @@ static char	**get_args(char *str_cmd, int index)
 	args[index] = ft_substr(str_cmd, 0, str_end - str_cmd + offset);
 	return (args);
 }
+
+t_command	*new_command(char *str_cmd, char **envp, char **paths)
+{
+	t_command	*command;
+
+	command = malloc(sizeof(t_command));
+	command->filename = get_filename(str_cmd);
+	command->pathname = get_pathname(command->filename, paths);
+	command->argv = get_args(str_cmd + ft_strlen(command->filename), 0);
+	command->envp = envp;
+	return (command);
+}

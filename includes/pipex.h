@@ -26,4 +26,6 @@ typedef struct s_command {
 	char	**argv;
 }	t_command;
 
+t_command	*new_command(char *str_cmd, char **envp, char **paths);
+
 #endif
