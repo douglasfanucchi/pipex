@@ -36,6 +36,7 @@ static char	*get_pathname(char *bin, char **paths)
 static char	*get_filename(char *str_cmd)
 {
 	char	*str_end;
+
 	if (!str_cmd)
 		return (ft_strdup(""));
 	while (ft_isspace(*str_cmd))
