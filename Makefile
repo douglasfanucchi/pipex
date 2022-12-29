@@ -1,9 +1,12 @@
 NAME=pipex
 CC=cc
-FILES=pipex new_command paths validate_args commands open_files get_command_args
+FILES=pipex paths validate_args \
+		commands/new_command commands/commands \
+		commands/get_command_args open_files
 SRC := $(addsuffix .c, $(FILES))
 SRC := $(addprefix sources/, $(SRC))
-OBJS = $(addsuffix .o, $(FILES))
+OBJS := $(addsuffix .o, $(FILES))
+OBJS := $(OBJS:commands/%=%)
 PRINTF_PATH=lib/ft_printf
 FLAGS=-I includes -I $(PRINTF_PATH)/includes -I $(PRINTF_PATH)/libft\
 	  -Wall -Werror -Wextra
