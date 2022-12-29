@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include <pipex.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
 
 void	set_commands_file_descriptors(t_list **cmd_list, int *files)
 {
