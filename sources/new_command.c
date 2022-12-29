@@ -47,35 +47,6 @@ static char	*get_filename(char *str_cmd)
 	return (ft_substr(str_cmd, 0, str_end - str_cmd));
 }
 
-static char	**get_args(char *str_cmd, int index)
-{
-	char	**args;
-	char	delimiter;
-	char	*str_end;
-	int		offset;
-
-	offset = 0;
-	while (ft_isspace(*str_cmd))
-		str_cmd++;
-	if (!*str_cmd)
-	{
-		args = malloc(sizeof(char **) * (index + 1));
-		args[index] = NULL;
-		return (args);
-	}
-	delimiter = ' ';
-	if (*str_cmd == '\'' || *str_cmd == '"')
-		delimiter = *str_cmd;
-	str_end = str_cmd + 1;
-	while (*str_end && *str_end != delimiter)
-		str_end++;
-	if (delimiter != ' ')
-		offset = 1;
-	args = get_args(str_end + offset, index + 1);
-	args[index] = ft_substr(str_cmd, 0, str_end - str_cmd + offset);
-	return (args);
-}
-
 void	del_command(void *cmd)
 {
 	char		**argv;
@@ -103,7 +74,7 @@ t_command	*new_command(char *str_cmd, char **envp, char **paths)
 	command = malloc(sizeof(t_command));
 	command->filename = get_filename(str_cmd);
 	command->pathname = get_pathname(command->filename, paths);
-	command->argv = get_args(str_cmd + ft_strlen(command->filename), 1);
+	command->argv = get_command_args(str_cmd + ft_strlen(command->filename), 1);
 	command->argv[0] = ft_strdup(command->filename);
 	command->input_fd = -1;
 	command->output_fd = -1;
