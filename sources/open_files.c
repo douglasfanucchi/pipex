@@ -41,7 +41,7 @@ void	open_files(int *files, char **argv, int args)
 	check_exists(argv[0]);
 	check_permission(argv[0], R_OK);
 	files[0] = open(argv[0], O_RDONLY);
-	files[1] = open(argv[args - 1], O_CREAT | O_RDWR, 0644);
+	files[1] = open(argv[args - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (files[1] == -1)
 	{
 		close(files[0]);
