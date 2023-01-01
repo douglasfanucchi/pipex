@@ -79,5 +79,9 @@ t_command	*new_command(char *str_cmd, char **envp, char **paths)
 	command->input_fd = -1;
 	command->output_fd = -1;
 	command->envp = envp;
+	command->bash_status = 1;
+	command->pid = 0;
+	command->pipe[0] = 0;
+	command->pipe[1] = 0;
 	return (command);
 }
