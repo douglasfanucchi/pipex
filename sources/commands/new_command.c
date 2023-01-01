@@ -30,7 +30,7 @@ static char	*get_pathname(char *bin, char **paths)
 		paths++;
 	}
 	free(slash_bin);
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 static char	*get_filename(char *str_cmd)
