@@ -20,29 +20,17 @@ SOURCES = ft_printf.c \
 		formats_list.c \
 
 OBJECTS = $(SOURCES:.c=.o) $(SOURCES_FORMATS:.c=.o)
-TESTS_SOURCES = tests/main.c \
-				tests/test_find_format_from_str_start.c \
-			    tests/test_hex_base_converter.c \
-			    tests/test_ft_printf.c \
-				tests/formats/s_char_format.c \
-				tests/formats/s_decimal_format.c \
-				tests/formats/s_hex_lower_format.c \
-				tests/formats/s_hex_upper_format.c \
-				tests/formats/s_integer_format.c \
-				tests/formats/s_percentage_format.c \
-				tests/formats/s_pointer_format.c \
-				tests/formats/s_str_format.c \
-				tests/formats/s_u_decimal_format.c \
 
-all: $(NAME)
+all: | libft
 
-$(NAME): $(LIBFT) $(OBJECTS)
+$(NAME): $(OBJECTS) $(LIBFT)
 	cp $(LIBFT) $(NAME)
 	ar -rcs $(NAME) $(OBJECTS)
 
-$(LIBFT):
+libft:
 	make -C libft/
 	make bonus -C libft/
+	make $(NAME)
 
 $(OBJECTS): $(addprefix sources/, $(SOURCES)) $(addprefix sources/formats/, $(SOURCES_FORMATS))
 	@$(CC) $(INCLUDES) $(CC_FLAGS) -c $(addprefix sources/, $(SOURCES)) $(addprefix sources/formats/, $(SOURCES_FORMATS))
@@ -57,12 +45,4 @@ fclean: clean
 
 re: fclean all
 
-tests: $(TESTS)
-	@./$(TESTS)
-
-$(TESTS): clean_tests $(LIBFT) $(OBJECTS) $(TESTS_SOURCES)
-	@$(CC) -g3 $(INCLUDES) $(OBJECTS) $(TESTS_SOURCES) $(LIBFT) -o $(TESTS)
-
-clean_tests:
-	@rm -f $(OBJECTS)
-	@rm -f $(TESTS)
+.PHONY: libft
