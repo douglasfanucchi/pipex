@@ -62,8 +62,6 @@ void	del_command(void *cmd)
 		argv++;
 	}
 	free(command->argv);
-	close(command->input_fd);
-	close(command->output_fd);
 	free(command);
 }
 
