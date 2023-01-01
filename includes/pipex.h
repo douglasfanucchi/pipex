@@ -25,6 +25,9 @@ typedef struct s_command {
 	char	*filename;
 	char	**envp;
 	char	**argv;
+	pid_t	pid;
+	char	bash_status;
+	int		pipe[2];
 }	t_command;
 
 t_command	*new_command(char *str_cmd, char **envp, char **paths);
