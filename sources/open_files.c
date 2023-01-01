@@ -12,40 +12,32 @@
 
 #include <pipex.h>
 
-static void	check_exists(char *file)
+static int	file_exists(char *file)
 {
-	if (access(file, F_OK) == -1)
-	{
-		ft_printf("%s: No such file or directory\n", file);
-		exit(1);
-	}
+	return (access(file, F_OK) == 0);
 }
 
-static void	check_permission(char *file, int mode)
+static int	has_permission(char *file, int mode)
 {
-	if (access(file, mode) == -1)
-	{
-		ft_printf("%s: Permission denied\n", file);
-		exit(1);
-	}
+	return (access(file, mode) == 0);
 }
 
 void	close_files(int *files)
 {
-	close(files[0]);
-	close(files[1]);
+	if (files[0] != -1)
+		close(files[0]);
+	if (files[1] != -1)
+		close(files[1]);
 }
 
 void	open_files(int *files, char **argv, int args)
 {
-	check_exists(argv[0]);
-	check_permission(argv[0], R_OK);
+	if (!file_exists(argv[0]))
+		ft_printf("%s: No such file or directory\n", argv[0]);
+	else if (!has_permission(argv[0], R_OK))
+		ft_printf("%s: Permission denied\n", argv[0]);
 	files[0] = open(argv[0], O_RDONLY);
 	files[1] = open(argv[args - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (files[1] == -1)
-	{
-		close(files[0]);
 		ft_printf("%s: Permission denied\n", argv[args - 1]);
-		exit(1);
-	}
 }
