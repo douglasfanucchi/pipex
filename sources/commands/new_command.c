@@ -17,6 +17,9 @@ static char	*get_pathname(char *bin, char **paths)
 	char	*pathname;
 	char	*slash_bin;
 
+	if (*bin == '/' || ft_strncmp("./", bin, 2) == 0
+		|| ft_strncmp("../", bin, 3) == 0 || ft_strncmp(bin, "~/", 2) == 0)
+		return (ft_strdup(bin));
 	slash_bin = ft_strjoin("/", bin);
 	while (*paths)
 	{
