@@ -23,7 +23,7 @@ t_list	**get_commands(char **argv, char **envp)
 	paths = get_paths(envp);
 	commands_start_at = 2;
 	if (ft_strncmp(argv[1], "here_doc", ft_strlen(argv[1])) == 0)
-		commands_start_at += 2;
+		commands_start_at++;
 	params = argv + commands_start_at;
 	commands = ft_newlist();
 	while (*(params + 1))
