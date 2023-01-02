@@ -13,8 +13,8 @@
 #include <pipex.h>
 
 void	set_commands_file_descriptors(t_list **cmd_list, int *files);
-int		exec_cmd(t_command *cmd, t_command *next_cmd);
-void	run_commands(t_list **commands);
+int		exec_cmd(t_command *cmd, t_command *next_cmd, int *files);
+void	run_commands(t_list **commands, int *files);
 void	set_bash_status(t_list **commands, t_command *last_cmd);
 
 int	main(int argc, char **argv, char **envp)
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	open_files(files, argv + 1, argc - 1);
 	cmd_list = get_commands(argv, envp);
 	set_commands_file_descriptors(cmd_list, files);
-	run_commands(cmd_list);
+	run_commands(cmd_list, files);
 	last_command = ft_lstlast(*cmd_list)->content;
 	status = last_command->bash_status;
 	close_files(files);
@@ -51,7 +51,7 @@ void	set_commands_file_descriptors(t_list **cmd_list, int *files)
 	command->output_fd = files[1];
 }
 
-int	exec_cmd(t_command *cmd, t_command *next_cmd)
+int	exec_cmd(t_command *cmd, t_command *next_cmd, int *files)
 {
 	pipe(cmd->pipe);
 	if (!*cmd->pathname)
@@ -69,8 +69,8 @@ int	exec_cmd(t_command *cmd, t_command *next_cmd)
 	{
 		dup2(cmd->input_fd, 0);
 		dup2(cmd->output_fd, 1);
-		close(cmd->pipe[0]);
-		close(cmd->pipe[1]);
+		ft_closefd(5, cmd->pipe[0], cmd->pipe[1], cmd->input_fd,
+			files[0], files[1]);
 		if (cmd->input_fd != -1 && cmd->output_fd != -1)
 			execve(cmd->pathname, cmd->argv, cmd->envp);
 		return (1);
@@ -79,7 +79,7 @@ int	exec_cmd(t_command *cmd, t_command *next_cmd)
 	return (0);
 }
 
-void	run_commands(t_list **commands)
+void	run_commands(t_list **commands, int *files)
 {
 	t_list		*node;
 	t_command	*prev_cmd;
@@ -91,9 +91,9 @@ void	run_commands(t_list **commands)
 	while (node)
 	{
 		if (node->next)
-			exec_failed = exec_cmd(node->content, node->next->content);
+			exec_failed = exec_cmd(node->content, node->next->content, files);
 		else
-			exec_failed = exec_cmd(node->content, NULL);
+			exec_failed = exec_cmd(node->content, NULL, files);
 		if (prev_cmd)
 			close(prev_cmd->pipe[0]);
 		if (exec_failed)
