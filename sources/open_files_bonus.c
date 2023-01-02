@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dfanucch <dfanucch@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: dfanucch <dfanucch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 03:44:52 by dfanucch          #+#    #+#             */
-/*   Updated: 2023/01/02 03:44:53 by dfanucch         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:26:50 by dfanucch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ static void	create_here_doc(char *limiter)
 void	open_files(int *files, char **argv, int args)
 {
 	char	*read_file;
+	int		output_flags;
 
+	output_flags = O_CREAT | O_WRONLY | O_TRUNC;
 	read_file = argv[0];
 	if (ft_strncmp(read_file, "here_doc", ft_strlen(read_file)) == 0)
 	{
+		output_flags = O_CREAT | O_WRONLY | O_APPEND;
 		read_file = ".tmp_here_doc";
 		create_here_doc(argv[1]);
 	}
@@ -65,7 +68,7 @@ void	open_files(int *files, char **argv, int args)
 	else if (!has_permission(read_file, R_OK))
 		ft_printf("%s: Permission denied\n", read_file);
 	files[0] = open(read_file, O_RDONLY);
-	files[1] = open(argv[args - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	files[1] = open(argv[args - 1], output_flags, 0644);
 	if (files[1] == -1)
 		ft_printf("%s: Permission denied\n", argv[args - 1]);
 }
