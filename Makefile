@@ -1,19 +1,20 @@
 NAME=pipex
 CC=cc
 FILES=pipex paths commands/new_command \
-		commands/get_command_args open_files
+		commands/get_command_args
 SRC := $(addsuffix .c, $(FILES))
 SRC := $(addprefix sources/, $(SRC))
 OBJS := $(addsuffix .o, $(FILES))
 OBJS := $(OBJS:commands/%=%)
 
-MANDATORY_FILES = commands/commands validate_args
+MANDATORY_FILES = commands/commands validate_args open_files clear_pipex
 MANDATORY_SRC := $(addsuffix .c, $(MANDATORY_FILES))
 MANDATORY_SRC := $(addprefix sources/, $(MANDATORY_SRC))
 MANDATORY_OBJS := $(addsuffix .o, $(MANDATORY_FILES))
 MANDATORY_OBJS := $(MANDATORY_OBJS:commands/%=%)
 
-BONUS_FILES := commands/commands_bonus validate_args_bonus
+BONUS_FILES := commands/commands_bonus validate_args_bonus \
+				open_files_bonus clear_pipex_bonus
 BONUS_SRC := $(addsuffix .c, $(BONUS_FILES))
 BONUS_SRC := $(addprefix sources/, $(BONUS_SRC))
 BONUS_OBJS := $(addsuffix .o, $(BONUS_FILES))
