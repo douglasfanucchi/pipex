@@ -22,14 +22,6 @@ static int	has_permission(char *file, int mode)
 	return (access(file, mode) == 0);
 }
 
-void	close_files(int *files)
-{
-	if (files[0] != -1)
-		close(files[0]);
-	if (files[1] != -1)
-		close(files[1]);
-}
-
 void	open_files(int *files, char **argv, int args)
 {
 	if (!file_exists(argv[0]))
