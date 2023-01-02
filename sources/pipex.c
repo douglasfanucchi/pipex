@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	run_commands(cmd_list, files);
 	last_command = ft_lstlast(*cmd_list)->content;
 	status = last_command->bash_status;
-	close_files(files);
+	ft_closefd(2, files[0], files[1]);
 	ft_lstclear(cmd_list, del_command);
 	return (status);
 }

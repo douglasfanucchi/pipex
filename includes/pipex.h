@@ -37,7 +37,6 @@ void		del_paths(char **paths);
 char		validate_args(int argc);
 t_list		**get_commands(char **params, char **envp);
 void		open_files(int *files, char **argv, int args);
-void		close_files(int *files);
 char		**get_command_args(char *str_cmd, int index);
 
 #endif
