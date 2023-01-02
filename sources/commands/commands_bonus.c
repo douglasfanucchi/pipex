@@ -14,10 +14,11 @@
 
 t_list	**get_commands(char **argv, char **envp)
 {
-	t_list	**commands;
-	int		commands_start_at;
-	char	**params;
-	char	**paths;
+	t_list		**commands;
+	int			commands_start_at;
+	char		**params;
+	char		**paths;
+	t_command	*command;
 
 	paths = get_paths(envp);
 	commands_start_at = 2;
@@ -26,7 +27,11 @@ t_list	**get_commands(char **argv, char **envp)
 	params = argv + commands_start_at;
 	commands = ft_newlist();
 	while (*(params + 1))
-		ft_lstadd_back(commands, ft_lstnew(new_command(*(params++), envp, paths)));
+	{
+		command = new_command(*(params), envp, paths);
+		ft_lstadd_back(commands, ft_lstnew(command));
+		params++;
+	}
 	del_paths(paths);
 	return (commands);
 }
